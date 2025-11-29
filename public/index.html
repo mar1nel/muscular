@@ -1,43 +1,450 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
+<!--
+Sistemul-Muscular - Prezentare multimedia (single-file)
+15+ "pagini" implementate ca secțiuni într-un SPA simplu.
+Instrucțiuni: Salvează ca `index.html` într-un folder; pune fișierele media în subfoldere
+(audio/, video/, images/) și înlocuiește placeholder-urile.
+-->
+<!doctype html>
+<html lang="ro">
+<head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Sistemul Muscular - Prezentare Multimedia</title>
+    <style>
+        :root{--bg:#0f1724;--card:#0b1220;--accent:#ff6b6b;--muted:#94a3b8;--glass: rgba(255,255,255,0.04)}
+        *{box-sizing:border-box}
+        body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; background:linear-gradient(180deg,#071026, #061226); color:#e6eef8}
+        header{display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;background:linear-gradient(90deg,rgba(255,255,255,0.03),transparent);position:sticky;top:0;z-index:50}
+        .logo{font-weight:700;font-size:1.125rem;display:flex;align-items:center;gap:.6rem}
+        nav{margin-left:auto;display:flex;gap:.5rem}
+        nav button{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:.45rem .7rem;border-radius:8px;color:var(--muted);cursor:pointer}
+        nav button.active{border-color:var(--accent);color:var(--accent)}
+        main{display:grid;grid-template-columns:320px 1fr;gap:1rem;padding:1rem}
+        aside{background:var(--card);border-radius:12px;padding:1rem;height:calc(100vh - 120px);overflow:auto}
+        .menu-item{padding:.6rem .6rem;border-radius:8px;margin-bottom:.35rem;cursor:pointer;border:1px solid transparent}
+        .menu-item:hover{background:var(--glass)}
+        .menu-item.active{border-color:var(--accent);background:linear-gradient(90deg,rgba(255,107,107,0.04),transparent)}
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+        /* Page card */
+        .page{display:none;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:1.25rem;border-radius:12px;min-height:70vh}
+        .page.active{display:block}
+        .hero{display:flex;gap:1rem;align-items:center}
+        .hero h1{margin:0;font-size:1.6rem}
+        .controls{display:flex;gap:.5rem;margin-top:.75rem}
+        .btn{background:var(--accent);border:none;padding:.5rem .75rem;border-radius:10px;color:#061226;font-weight:600;cursor:pointer}
+        .muted{color:var(--muted)}
+        .svg-wrap{display:flex;gap:1rem;align-items:flex-start}
+        svg{max-width:420px;width:100%;height:auto;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.015), transparent);padding:.5rem}
+        .info{flex:1}
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+        /* responsive */
+        @media (max-width:900px){main{grid-template-columns:1fr;}
+            aside{order:2;height:auto}
+        }
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+        /* quiz */
+        .quiz-item{background:rgba(255,255,255,0.02);padding:.8rem;border-radius:8px;margin-bottom:.6rem}
+        .tooltip{position:absolute;background:#062031;padding:.4rem .6rem;border-radius:6px;border:1px solid rgba(255,255,255,0.04);font-size:.85rem}
+        footer{padding:1rem;text-align:center;color:var(--muted)}
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo">Sistemul Muscular</div>
+    <div class="muted">Prezentare multimedia - HTML5 · CSS3 · JS</div>
+    <nav id="top-nav" aria-label="Top navigation"></nav>
+</header>
+
+<main>
+    <aside>
+        <h3>Cuprins</h3>
+        <div id="menu"></div>
+        <hr style="margin:1rem 0;border-color:rgba(255,255,255,0.03)">
+        <div>
+            <strong>Control prezentare</strong>
+            <div style="margin-top:.5rem;display:flex;gap:.5rem">
+                <button id="prev" class="btn" style="background:#2a3a4a">Prev</button>
+                <button id="next" class="btn">Next</button>
+            </div>
+        </div>
+        <hr style="margin:1rem 0;border-color:rgba(255,255,255,0.03)">
+        <small class="muted">Notă: înlocuiește fișierele media din folderele audio/, images/, video/</small>
+    </aside>
+
+    <section id="content">
+        <!-- PAGE 1 - Intro -->
+        <article class="page active" data-page="1">
+            <div class="hero">
+                <div>
+                    <h1>Sistemul muscular - Introducere</h1>
+                    <p class="muted">Ce este, roluri principale și clasificare (scheletic, cardiac, neted).</p>
+                    <div class="controls">
+                        <button class="btn" onclick="playNarration('audio/audio1.mp3')">Ascultă narator</button>
+                        <button class="btn" onclick="document.getElementById('svg-main').scrollIntoView({behavior:'smooth'})">Vezi schemă</button>
+                    </div>
+                </div>
+                <div style="flex:1">
+                    <img src="/images/muscle-illustration.jpg" alt="muscle" style="width:100%;max-width:360px;border-radius:10px;opacity:.95">
+                </div>
+            </div>
+            <hr style="margin:1rem 0;border-color:rgba(255,255,255,0.03)">
+<!--            <p>Sistemul muscular reprezintă unul dintre cele mai importante sisteme ale corpului uman. Fiecare mișcare, de la simpla clipire până la alergare sau vorbit, este posibilă datorită mușchilor. Aceștia lucrează împreună cu oasele, articulațiile și sistemul nervos pentru a crea mișcare, a menține postura și chiar pentru a produce căldură atunci când temperatura corpului scade.-->
+<!--                În această prezentare vei descoperi:-->
+<!--                ce tipuri de mușchi există în corpul uman,-->
+<!--                cum sunt structurați, cum funcționează,-->
+<!--                și ce roluri esențiale au în activitățile noastre zilnice.-->
+<!--                Sistemul muscular nu înseamnă doar forță - înseamnă viață, coordonare, energie și adaptare.</p>-->
+
+            <section aria-labelledby="intro-muscular" >
+                <h1 id="intro-muscular">Introducere - Sistemul muscular</h1>
+                <hr>
+                <p>
+                    Sistemul muscular este unul dintre cele mai complexe și fascinante sisteme ale corpului uman. El asigură mișcarea într-un spectru larg, de la cele mai fine gesturi, cum ar fi clipitul sau zâmbetul, până la eforturile intense, precum alergarea sau ridicarea unei greutăți. Prin contractarea mușchilor, corpul poate transforma semnalele electrice venite din creier în acțiuni mecanice precise.
+                </p>
+
+                <p>
+                    În total, corpul uman conține peste 600 de mușchi, fiecare adaptat formei și funcției sale. Aceștia includ mușchii scheletici, care sunt controlați voluntar și permit mișcarea membrelor; mușchiul cardiac, care pompează sânge în mod continuu; și mușchii netezi, care reglează funcții automate cum ar fi digestia sau tonusul vaselor de sânge. Diversitatea acestora reflectă varietatea rolurilor pe care le îndeplinesc.
+                </p>
+
+                <p>
+                    Colaborarea dintre sistemul muscular, cel osos și sistemul nervos este esențială pentru coordonare. Creierul transmite impulse nervoase prin nervi către fibrele musculare; în urma acestor semnale apare contracția, iar mușchii exercită forță asupra oaselor la nivelul articulațiilor. Astfel se realizează mișcările complexe necesare pentru mers, prindere, comunicare și menținerea posturii.
+                </p>
+
+                <p>
+                    Pe lângă rolul în mișcare, mușchii contribuie la menținerea homeostaziei: produc căldură prin arderea energiei în timpul contracțiilor, participă la stabilizarea articulațiilor și la protecția organelor interne. Starea mușchilor influențează direct performanța fizică, echilibrul și calitatea vieții, iar problemele musculare pot afecta mobilitatea și confortul zilnic.
+                </p>
+
+                <p>
+                    În această prezentare vei găsi informații despre clasificarea mușchilor, anatomia principalelor grupe musculare, mecanismele de contracție la nivel molecular, precum și metode de diagnostic și recuperare pentru afecțiunile musculare. Vor fi incluse demonstrații vizuale, animații care explică interacțiunea dintre actină și miozină, exemple de exerciții practice și un scurt quiz pentru consolidare.
+                </p>
+
+            </section>
+
+
+
+        </article>
+
+        <!-- PAGE 2 - Anatomie generală (SVG interactiv) -->
+        <article class="page" data-page="2">
+            <h2>Anatomie generală - mușchi importanți</h2>
+            <div class="svg-wrap">
+                <!-- Simplified SVG of a human body with clickable muscle regions -->
+                <div id="svg-main">
+                    <svg viewBox="0 0 200 500" xmlns="http://www.w3.org/2000/svg">
+                        <!-- head & torso outline -->
+                        <rect x="70" y="10" width="60" height="60" rx="8" fill="#0a1220" stroke="#123" />
+                        <!-- chest muscles (pectoralis) -->
+                        <path id="pectoralis" d="M60 90 C80 70 120 70 140 90 L140 120 C120 110 80 110 60 120 Z" fill="#ffb4b4" stroke="#ff6b6b"/>
+                        <!-- biceps (left) -->
+                        <ellipse id="biceps-L" cx="45" cy="140" rx="12" ry="24" fill="#ffb4b4" stroke="#ff6b6b"/>
+                        <!-- biceps (right) -->
+                        <ellipse id="biceps-R" cx="155" cy="140" rx="12" ry="24" fill="#ffb4b4" stroke="#ff6b6b"/>
+                        <!-- abdominals -->
+                        <rect id="abdomen" x="80" y="120" width="40" height="60" rx="4" fill="#ffd9d9" stroke="#ff6b6b"/>
+                        <!-- quadriceps (left) -->
+                        <rect id="quad-L" x="70" y="200" width="20" height="80" rx="6" fill="#ffb4b4" stroke="#ff6b6b"/>
+                        <!-- quadriceps (right) -->
+                        <rect id="quad-R" x="110" y="200" width="20" height="80" rx="6" fill="#ffb4b4" stroke="#ff6b6b"/>
+                        <!-- labels (invisible) -->
+                    </svg>
+                </div>
+
+                <div class="info">
+                    <h3 id="muscle-title">Alege un mușchi</h3>
+                    <p id="muscle-desc" class="muted">Dă click pe o zonă din schemă pentru a vedea detalii: origini, inserții, acțiune, exerciții</p>
+                    <ul id="muscle-list"></ul>
+                </div>
+            </div>
+        </article>
+
+        <!-- PAGE 3 - Mușchi pectorali -->
+        <article class="page" data-page="3">
+            <h2>Pectoralis Major & Minor</h2>
+            <p class="muted">Origine: claviculă, stern. Inserție: humerus. Acțiune: adducție și rotație internă a brațului.</p>
+            <video controls width="25%" style="border-radius:8px;margin-top:.6rem">
+                <source src="video/video1.mp4" type="video/mp4">
+            </video>
+            <h4 style="margin-top:1rem">Exerciții recomandate</h4>
+            <ul>
+                <li>Împins cu bara (bench press)</li>
+                <li>Fluturări cu gantere</li>
+            </ul>
+        </article>
+
+        <!-- PAGE 4 - Biceps -->
+        <article class="page" data-page="4">
+            <h2>Biceps brachii</h2>
+            <p class="muted">Funcție: flexie cot, supinație antebraț.</p>
+            <div style="display:flex;gap:1rem;align-items:center">
+                <canvas id="biceps-canvas" width="420" height="200" style="border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent)"></canvas>
+                <div>
+                    <p>Simulare contracție — apasă butonul pentru a vedea o animație simplificată a contracției bicepsului.</p>
+                    <button class="btn" onclick="animateBiceps()">Animație contracție</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- PAGE 5 - Abdomen -->
+        <article class="page" data-page="5">
+            <h2>Mușchii abdominali</h2>
+            <p class="muted">Rol în stabilitate, respirație și mișcări trunchi.</p>
+            <audio controls style="margin-top:.6rem;width:100%">
+                <source src="audio/audio2.mp3" type="audio/mpeg">
+            </audio>
+        </article>
+
+        <!-- PAGE 6 - Quadriceps -->
+        <article class="page" data-page="6">
+            <h2>Quadriceps</h2>
+            <p class="muted">Extensie genunchi, importante la mers și sărit.</p>
+            <div style="display:flex;gap:1rem;margin-top:.6rem">
+                <img src="images/image2.jpg" alt="quadriceps" style="max-width:260px;border-radius:8px">
+                <div>
+                    <p>Exerciții: genuflexiuni, fandări, extensii la aparat.</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- PAGE 7 - Mecanica contracției (teorie + canvas) -->
+        <article class="page" data-page="7">
+            <h2>Mecanica contracției musculare (simplificat)</h2>
+            <p class="muted">Actina și miozina — secvență animată.</p>
+            <canvas id="sarcomere" width="620" height="200" style="width:100%;border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent)"></canvas>
+            <div style="margin-top:.6rem">
+                <button class="btn" onclick="animateSarcomere()">Rulează animație sarcomer</button>
+            </div>
+        </article>
+
+        <!-- PAGE 8 - Tipuri de mușchi -->
+        <article class="page" data-page="8">
+            <h2>Tipuri de mușchi</h2>
+            <ul>
+                <li>Scheletic</li>
+                <li>Cardiac</li>
+                <li>Neted</li>
+            </ul>
+        </article>
+
+        <!-- PAGE 9 - Patologii comune -->
+        <article class="page" data-page="9">
+            <h2>Patologii comune</h2>
+            <p class="muted">Tendinită, distensii, atrofie, crampe.</p>
+        </article>
+
+        <!-- PAGE 10 - Diagnostic și imagistică -->
+        <article class="page" data-page="10">
+            <h2>Diagnostic: imagistică</h2>
+            <p class="muted">RMN, ecografie musculară, EMG (electromiografie).</p>
+        </article>
+
+        <!-- PAGE 11 - Recuperare și fizioterapie -->
+        <article class="page" data-page="11">
+            <h2>Recuperare</h2>
+            <p class="muted">Tehnici, stretching, terapie prin undă de șoc, exerciții de reechilibrare.</p>
+        </article>
+
+        <!-- PAGE 12 - Nutriție și mușchi -->
+        <article class="page" data-page="12">
+            <h2>Nutriție</h2>
+            <p class="muted">Rolul proteinelor, hidratare, suplimente (doar informativ).</p>
+        </article>
+
+        <!-- PAGE 13 - Exerciții practice (video playlist) -->
+        <article class="page" data-page="13">
+            <h2>Exerciții practice</h2>
+            <div>
+                <iframe width="100%" height="315" src="https://www.youtube.com/embed/VIDEO_ID" title="YouTube video" frameborder="0" allowfullscreen style="border-radius:8px"></iframe>
+            </div>
+        </article>
+
+        <!-- PAGE 14 - Galerie multimedia -->
+        <article class="page" data-page="14">
+            <h2>Galerie</h2>
+            <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+                <img src="images/gallery1.jpg" style="width:calc(33% - .6rem);border-radius:8px">
+                <img src="images/gallery2.jpg" style="width:calc(33% - .6rem);border-radius:8px">
+                <img src="images/gallery3.jpg" style="width:calc(33% - .6rem);border-radius:8px">
+            </div>
+        </article>
+
+        <!-- PAGE 15 - Quiz -->
+        <article class="page" data-page="15">
+            <h2>Quiz — testează-ți cunoștințele</h2>
+            <div id="quiz"></div>
+            <div style="margin-top:.6rem"><button class="btn" onclick="gradeQuiz()">Trimite</button></div>
+            <div id="quiz-result" style="margin-top:.6rem"></div>
+        </article>
+
+        <!-- PAGE 16 - Resurse & bibliografie -->
+        <article class="page" data-page="16">
+            <h2>Resurse</h2>
+            <ul>
+                <li>Atlas de anatomie (exemplu)</li>
+                <li>Site-uri medicale (replace with citations)</li>
+            </ul>
+        </article>
+
+        <!-- PAGE 17 - Formular feedback -->
+        <article class="page" data-page="17">
+            <h2>Feedback</h2>
+            <form onsubmit="event.preventDefault();alert('Mulțumim pentru feedback!')">
+                <label>Nume<br><input required style="width:100%;padding:.5rem;margin-top:.3rem;border-radius:6px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit"></label>
+                <label style="display:block;margin-top:.6rem">Comentarii<br><textarea required style="width:100%;padding:.5rem;margin-top:.3rem;border-radius:6px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit"></textarea></label>
+                <div style="margin-top:.6rem"><button class="btn">Trimite</button></div>
+            </form>
+        </article>
+
+        <!-- PAGE 18 - Despre autor -->
+        <article class="page" data-page="18">
+            <h2>Despre autor</h2>
+            <p class="muted">Detalii despre student (poți completa).</p>
+        </article>
+
+        <!-- PAGE 19 - Glosar termeni -->
+        <article class="page" data-page="19">
+            <h2>Glosar</h2>
+            <dl>
+                <dt>Origine</dt><dd>Locul de pornire al mușchiului.</dd>
+                <dt>Inserție</dt><dd>Locul de fixare la os.</dd>
+            </dl>
+        </article>
+
+        <!-- PAGE 20 - Concluzii -->
+        <article class="page" data-page="20">
+            <h2>Concluzii</h2>
+            <p class="muted">Sumar și direcții de studiu.</p>
+        </article>
+
+        <footer>Prezentare creată cu HTML5 · CSS3 · JavaScript by Ababii Vicu</footer>
+    </section>
+</main>
+
+<audio id="narration" src="" hidden></audio>
+
+<script>
+    /* --- Build menu dynamically based on pages --- */
+    const pages = Array.from(document.querySelectorAll('.page'));
+    const menu = document.getElementById('menu');
+    const topNav = document.getElementById('top-nav');
+    pages.forEach(p=>{
+        const i = p.dataset.page;
+        const title = p.querySelector('h2')? p.querySelector('h2').innerText : (p.querySelector('h1')? p.querySelector('h1').innerText : `Pagina ${i}`);
+        const item = document.createElement('div');
+        item.className='menu-item';
+        item.innerText = `${i}. ${title}`;
+        item.dataset.page = i;
+        item.onclick = ()=>showPage(i);
+        menu.appendChild(item);
+
+        // top nav buttons
+        const btn = document.createElement('button'); btn.innerText = i; btn.onclick = ()=>showPage(i);
+        topNav.appendChild(btn);
+    });
+
+    function showPage(n){
+        pages.forEach(p=> p.classList.toggle('active', p.dataset.page===String(n)));
+        document.querySelectorAll('.menu-item').forEach(mi=> mi.classList.toggle('active', mi.dataset.page===String(n)));
+        document.querySelectorAll('#top-nav button').forEach(b=> b.classList.toggle('active', b.innerText===String(n)));
+        current = Number(n);
+    }
+
+    // prev/next
+    let current = 1;
+    document.getElementById('prev').onclick = ()=>{ if(current>1) showPage(current-1); };
+    document.getElementById('next').onclick = ()=>{ if(current<pages.length) showPage(current+1); };
+
+    /* --- Muscles SVG interaction --- */
+    const muscleData = {
+        'pectoralis':{name:'Pectoralis Major', desc:'Origine: claviculă, stern. Inserție: humerus. Acțiune: adducție și rotație internă.'},
+        'biceps-L':{name:'Biceps brachii (stânga)', desc:'Flexie cot; supinație.'},
+        'biceps-R':{name:'Biceps brachii (dreapta)', desc:'Flexie cot; supinație.'},
+        'abdomen':{name:'Mușchii abdominali', desc:'Rol în stabilitate trunchi și respirație.'},
+        'quad-L':{name:'Quadriceps (stânga)', desc:'Extensie genunchi.'},
+        'quad-R':{name:'Quadriceps (dreapta)', desc:'Extensie genunchi.'}
+    };
+    Object.keys(muscleData).forEach(id=>{
+        const el = document.getElementById(id);
+        if(!el) return;
+        el.style.cursor='pointer';
+        el.addEventListener('mouseenter', ()=>{ el.setAttribute('opacity','0.9'); showTooltip(el, muscleData[id].name); });
+        el.addEventListener('mouseleave', ()=>{ el.removeAttribute('opacity'); hideTooltip(); });
+        el.addEventListener('click', ()=>{ document.getElementById('muscle-title').innerText = muscleData[id].name; document.getElementById('muscle-desc').innerText = muscleData[id].desc; showPageForMuscle(id); });
+    });
+
+    let tooltipEl;
+    function showTooltip(el, text){
+        hideTooltip();
+        tooltipEl = document.createElement('div'); tooltipEl.className='tooltip'; tooltipEl.innerText = text;
+        document.body.appendChild(tooltipEl);
+        const rect = el.getBoundingClientRect();
+        tooltipEl.style.left = (rect.left + window.scrollX + rect.width + 8) + 'px';
+        tooltipEl.style.top = (rect.top + window.scrollY) + 'px';
+    }
+    function hideTooltip(){ if(tooltipEl){tooltipEl.remove(); tooltipEl=null;} }
+
+    function showPageForMuscle(id){
+        // Jump to the dedicated page if exists (ex: pectoralis->page 3)
+        const map = { 'pectoralis':3, 'biceps-L':4, 'biceps-R':4, 'abdomen':5, 'quad-L':6, 'quad-R':6 };
+        if(map[id]) showPage(map[id]);
+    }
+
+    /* --- Narration --- */
+    function playNarration(src){
+        const a = document.getElementById('narration');
+        a.src = src; a.play().catch(()=>alert('Nu am găsit fișierul audio: '+src));
+    }
+
+    /* --- Biceps canvas animation (simple pulse) --- */
+    const bCanvas = document.getElementById('biceps-canvas');
+    const bCtx = bCanvas.getContext('2d');
+    let bPulse = 0, bAnimating=false;
+    function drawBiceps(progress){
+        bCtx.clearRect(0,0,bCanvas.width,bCanvas.height);
+        // arm background
+        bCtx.fillStyle = 'rgba(255,255,255,0.03)'; bCtx.fillRect(0,0,bCanvas.width,bCanvas.height);
+        // draw muscle as ellipse with varying rx
+        const cx = 150, cy = 100; const baseRx=40; const rx = baseRx - Math.abs(Math.sin(progress*Math.PI*2))*12;
+        bCtx.beginPath(); bCtx.ellipse(cx,cy,rx,50,0,0,Math.PI*2); bCtx.fillStyle='#ff9b9b'; bCtx.fill();
+        // label
+        bCtx.fillStyle='#e6eef8'; bCtx.font='16px sans-serif'; bCtx.fillText('Biceps (simulare)',20,30);
+    }
+    function animateBiceps(){ if(bAnimating) return; bAnimating=true; let t=0; const dur=1200; const start=performance.now(); function step(now){ t=(now-start)/dur; drawBiceps(t); if(t<1) requestAnimationFrame(step); else { drawBiceps(0); bAnimating=false; } } requestAnimationFrame(step); }
+
+    /* --- Sarcomere animation (very simplified) --- */
+    const sCanvas = document.getElementById('sarcomere');
+    const sCtx = sCanvas.getContext('2d');
+    function drawSarcomere(shift){
+        sCtx.clearRect(0,0,sCanvas.width,sCanvas.height);
+        const w = sCanvas.width; const h= sCanvas.height;
+        // draw actin filaments (thin) and myosin (thick)
+        for(let i=0;i<6;i++){
+            const x = 40 + i*90;
+            // actin left
+            sCtx.fillStyle='rgba(255,200,200,0.9)'; sCtx.fillRect(x-20+shift,40,20,120);
+            // myosin
+            sCtx.fillStyle='rgba(255,120,120,0.95)'; sCtx.fillRect(x+10,80,40,40);
+        }
+        sCtx.fillStyle='#e6eef8'; sCtx.font='14px sans-serif'; sCtx.fillText('Actină (subțire) și Miozină (grosolane) — animație simplificată',10,180);
+    }
+    function animateSarcomere(){ let start=performance.now(); const dur=1400; function step(now){ const t=(now-start)/dur; const shift = -Math.sin(t*Math.PI*2)*10; drawSarcomere(shift); if(t<1) requestAnimationFrame(step); else drawSarcomere(0);} requestAnimationFrame(step); }
+
+    /* --- Quiz --- */
+    const quizData = [
+        {q:'Care mușchi este principalul responsabil pentru flexia cotului?', a:['Triceps','Biceps','Quadriceps'], correct:1},
+        {q:'Ce mușchi extinde genunchiul?', a:['Quadriceps','Hamstrings','Pectoralis'], correct:0},
+        {q:'Mușchii abdominali au rol în?', a:['Respirație și stabilitate','Digestie directă','Vedere'], correct:0}
+    ];
+    const quizEl = document.getElementById('quiz');
+    quizData.forEach((item,idx)=>{
+        const box = document.createElement('div'); box.className='quiz-item';
+        box.innerHTML = `<strong>${idx+1}. ${item.q}</strong>`;
+        item.a.forEach((ans,i)=>{ const id=`q${idx}_a${i}`; const label=document.createElement('label'); label.style.display='block'; label.style.marginTop='.4rem'; label.innerHTML = `<input type="radio" name="q${idx}" value="${i}"> ${ans}`; box.appendChild(label); });
+        quizEl.appendChild(box);
+    });
+    function gradeQuiz(){ let score=0; quizData.forEach((it,idx)=>{ const sel = document.querySelector(`input[name=q${idx}]:checked`); if(sel && Number(sel.value)===it.correct) score++; }); document.getElementById('quiz-result').innerText = `Scor: ${score} / ${quizData.length}`; }
+
+    // initialize first menu item active
+    showPage(1);
+</script>
+</body>
 </html>
