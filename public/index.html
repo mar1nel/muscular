@@ -50,6 +50,7 @@ Instrucțiuni: Salvează ca `index.html` într-un folder; pune fișierele media 
 </head>
 <body>
 <header>
+
     <div class="logo">Sistemul Muscular</div>
     <div class="muted">Prezentare multimedia - HTML5 · CSS3 · JS</div>
     <nav id="top-nav" aria-label="Top navigation"></nav>
@@ -57,15 +58,17 @@ Instrucțiuni: Salvează ca `index.html` într-un folder; pune fișierele media 
 
 <main>
     <aside>
+
+        <strong>Control prezentare</strong>
+        <div style="margin-top:1.5rem;display:flex;gap:.5rem;margin-bottom:1.5rem">
+            <button id="prev" class="btn" style="background:#2a3a4a">Prev</button>
+            <button id="next" class="btn">Next</button>
+        </div>
         <h3>Cuprins</h3>
         <div id="menu"></div>
         <hr style="margin:1rem 0;border-color:rgba(255,255,255,0.03)">
         <div>
-            <strong>Control prezentare</strong>
-            <div style="margin-top:.5rem;display:flex;gap:.5rem">
-                <button id="prev" class="btn" style="background:#2a3a4a">Prev</button>
-                <button id="next" class="btn">Next</button>
-            </div>
+
         </div>
         <hr style="margin:1rem 0;border-color:rgba(255,255,255,0.03)">
         <small class="muted">Notă: înlocuiește fișierele media din folderele audio/, images/, video/</small>
@@ -200,7 +203,20 @@ Instrucțiuni: Salvează ca `index.html` într-un folder; pune fișierele media 
             <div style="display:flex;gap:1rem;margin-top:.6rem">
                 <img src="images/image2.jpg" alt="quadriceps" style="max-width:260px;border-radius:8px">
                 <div>
-                    <p>Exerciții: genuflexiuni, fandări, extensii la aparat.</p>
+                    <section aria-labelledby="quad-exercises" style="line-height:1.6; max-width:900px;">
+                        <h2 id="quad-exercises">Exerciții pentru Quadriceps</h2>
+                        <hr>
+
+                        <ul>
+                            <li><strong>Genuflexiuni (Squats):</strong> exercițiu de bază care activează intens quadricepsul și restul membrelor inferioare.</li>
+                            <li><strong>Fandări înainte (Lunges):</strong> solicită quadricepsul prin coborârea controlată a corpului.</li>
+                            <li><strong>Îndreptări bulgărești (Bulgarian Split Squats):</strong> excelent pentru concentrare pe un singur picior.</li>
+                            <li><strong>Extensii la aparat (Leg Extensions):</strong> izolează quadricepsul și permite controlul precis al greutății.</li>
+                            <li><strong>Presa pentru picioare (Leg Press):</strong> permite folosirea unor greutăți mai mari pentru dezvoltarea forței.</li>
+                            <li><strong>Sărituri pe loc (Jump Squats):</strong> variantă pliometrică pentru putere și explozie.</li>
+                        </ul>
+                    </section>
+
                 </div>
             </div>
         </article>
@@ -217,75 +233,130 @@ Instrucțiuni: Salvează ca `index.html` într-un folder; pune fișierele media 
 
         <!-- PAGE 8 - Tipuri de mușchi -->
         <article class="page" data-page="8">
-            <h2>Tipuri de mușchi</h2>
-            <ul>
-                <li>Scheletic</li>
-                <li>Cardiac</li>
-                <li>Neted</li>
-            </ul>
+            <section aria-labelledby="tipuri-muschi" style="line-height:1.6; max-width:900px;">
+                <h2 id="tipuri-muschi">Tipuri de mușchi</h2>
+                <hr>
+
+                <h3>Mușchi scheletici</h3>
+                <p>
+                    Mușchii scheletici sunt atașați de oase și permit mișcările voluntare ale corpului, precum mersul, ridicarea obiectelor sau menținerea posturii. Sunt formați din fibre lungi, striate și se contractă rapid, fiind controlați de sistemul nervos somatic.
+                </p>
+
+                <h3>Mușchi cardiaci</h3>
+                <p>
+                    Mușchiul cardiac se găsește exclusiv în inimă și are o structură striată, asemănătoare cu cea a mușchilor scheletici, dar funcționează involuntar. Contracțiile sale sunt ritmice și continue, asigurând pomparea eficientă a sângelui în tot organismul.
+                </p>
+
+                <h3>Mușchi netezi</h3>
+                <p>
+                    Mușchii netezi se află în pereții organelor interne, precum stomacul, intestinele, vasele de sânge și vezica urinară. Ei nu prezintă striații și se contractă lent și ritmic, fiind controlați de sistemul nervos autonom. Au un rol esențial în procese precum digestia și circulația.
+                </p>
+            </section>
+
         </article>
 
         <!-- PAGE 9 - Patologii comune -->
         <article class="page" data-page="9">
-            <h2>Patologii comune</h2>
-            <p class="muted">Tendinită, distensii, atrofie, crampe.</p>
+            <section aria-labelledby="patologii-musculare" style="line-height:1.6; max-width:900px;">
+                <h2 id="patologii-musculare">Patologii comune</h2>
+                <hr>
+
+                <h3>Tendinită</h3>
+                <p>
+                    Tendinita reprezintă inflamația unui tendon, apărută de obicei în urma suprasolicitării sau a mișcărilor repetate. Se manifestă prin durere localizată, rigiditate și sensibilitate la atingere.
+                </p>
+
+                <h3>Distensii musculare</h3>
+                <p>
+                    Distensiile apar atunci când fibrele musculare sunt întinse peste limită sau rupte parțial. Cauzele frecvente includ mișcări bruște, lipsa încălzirii sau efortul excesiv.
+                </p>
+
+                <h3>Atrofie musculară</h3>
+                <p>
+                    Atrofia se caracterizează prin reducerea masei și forței musculare. Poate apărea din cauza imobilizării prelungite, sedentarismului sau unor afecțiuni neurologice.
+                </p>
+
+                <h3>Crampe musculare</h3>
+                <p>
+                    Crampele sunt contracții involuntare, dureroase și de scurtă durată ale unui mușchi. Sunt cauzate de deshidratare, oboseală musculară sau dezechilibre electrolitice.
+                </p>
+            </section>
+
         </article>
 
-        <!-- PAGE 10 - Diagnostic și imagistică -->
         <article class="page" data-page="10">
             <h2>Diagnostic: imagistică</h2>
-            <p class="muted">RMN, ecografie musculară, EMG (electromiografie).</p>
+            <p>
+                Diagnosticul afecțiunilor musculare se bazează pe o serie de tehnici imagistice moderne care permit evaluarea precisă a structurii și funcției mușchiului.
+            </p>
+            <p>
+                <strong>RMN (Rezonanță Magnetică):</strong> oferă imagini detaliate ale țesutului muscular, detectând rupturi, edeme și inflamații.
+            </p>
+            <p>
+                <strong>Ecografie musculară:</strong> permite vizualizarea în timp real a contracțiilor musculare, a leziunilor și a acumulărilor de lichid.
+            </p>
+            <p>
+                <strong>EMG (Electromiografie):</strong> măsoară activitatea electrică a mușchilor și este esențială pentru identificarea afecțiunilor neurologice sau a slăbiciunii musculare.
+            </p>
         </article>
 
-        <!-- PAGE 11 - Recuperare și fizioterapie -->
+
+        <!-- PAGE 11 - Exerciții practice (video playlist) -->
         <article class="page" data-page="11">
-            <h2>Recuperare</h2>
-            <p class="muted">Tehnici, stretching, terapie prin undă de șoc, exerciții de reechilibrare.</p>
-        </article>
-
-        <!-- PAGE 12 - Nutriție și mușchi -->
-        <article class="page" data-page="12">
-            <h2>Nutriție</h2>
-            <p class="muted">Rolul proteinelor, hidratare, suplimente (doar informativ).</p>
-        </article>
-
-        <!-- PAGE 13 - Exerciții practice (video playlist) -->
-        <article class="page" data-page="13">
             <h2>Exerciții practice</h2>
             <div>
-                <iframe width="100%" height="315" src="https://www.youtube.com/embed/VIDEO_ID" title="YouTube video" frameborder="0" allowfullscreen style="border-radius:8px"></iframe>
+                <iframe
+                        width="600"
+                        height="355"
+                        src="https://www.youtube.com/embed/nuzT2iJESFA?si=xrpzRvaEOtHPsXw9"
+                        title="YouTube video"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                </iframe>
+
             </div>
         </article>
 
-        <!-- PAGE 14 - Galerie multimedia -->
-        <article class="page" data-page="14">
-            <h2>Galerie</h2>
-            <div style="display:flex;gap:.6rem;flex-wrap:wrap">
-                <img src="images/gallery1.jpg" style="width:calc(33% - .6rem);border-radius:8px">
-                <img src="images/gallery2.jpg" style="width:calc(33% - .6rem);border-radius:8px">
-                <img src="images/gallery3.jpg" style="width:calc(33% - .6rem);border-radius:8px">
-            </div>
+        <!-- PAGE 12 - Galerie multimedia -->
+        <article class="page" data-page="12">
+                <h2>Resurse</h2>
+                <hr>
+                <p>
+                    Pentru aprofundarea cunoștințelor despre sistemul muscular, următoarele resurse sunt recomandate:
+                </p>
+                <ul>
+                    <li><strong>Cărți și manuale:</strong>
+                        <ul>
+                            <li>"Anatomia omului" – R. Gray</li>
+                            <li>"Atlas de anatomie umană" – F. Netter</li>
+                        </ul>
+                    </li>
+                    <li><strong>Site-uri educaționale:</strong>
+                        <ul>
+                            <li><a href="https://www.visiblebody.com" target="_blank" rel="noopener noreferrer">Visible Body</a> – model 3D interactiv al corpului uman</li>
+                            <li><a href="https://www.kenhub.com" target="_blank" rel="noopener noreferrer">Kenhub</a> – articole și animații despre anatomie și fiziologie</li>
+                        </ul>
+                    </li>
+                    <li><strong>Jurnale și articole științifice:</strong> PubMed, ScienceDirect – pentru studii actuale privind funcția și patologii musculare</li>
+                    <li><strong>Video educaționale:</strong> Canale YouTube specializate în anatomie și fiziologie, cum ar fi <a href="https://www.youtube.com/user/AnatomyZone" target="_blank" rel="noopener noreferrer">AnatomyZone</a></li>
+                </ul>
+                <p>
+                    Aceste resurse pot fi utilizate pentru aprofundarea materiei, vizualizări interactive sau exerciții practice legate de sistemul muscular.
+                </p>
+
         </article>
 
-        <!-- PAGE 15 - Quiz -->
-        <article class="page" data-page="15">
-            <h2>Quiz — testează-ți cunoștințele</h2>
+        <!-- PAGE 13 - Quiz -->
+        <article class="page" data-page="13">
+            <h2>Quiz - testează-ți cunoștințele</h2>
             <div id="quiz"></div>
             <div style="margin-top:.6rem"><button class="btn" onclick="gradeQuiz()">Trimite</button></div>
             <div id="quiz-result" style="margin-top:.6rem"></div>
         </article>
 
-        <!-- PAGE 16 - Resurse & bibliografie -->
-        <article class="page" data-page="16">
-            <h2>Resurse</h2>
-            <ul>
-                <li>Atlas de anatomie (exemplu)</li>
-                <li>Site-uri medicale (replace with citations)</li>
-            </ul>
-        </article>
-
-        <!-- PAGE 17 - Formular feedback -->
-        <article class="page" data-page="17">
+        <!-- PAGE 14 - Formular feedback -->
+        <article class="page" data-page="14">
             <h2>Feedback</h2>
             <form onsubmit="event.preventDefault();alert('Mulțumim pentru feedback!')">
                 <label>Nume<br><input required style="width:100%;padding:.5rem;margin-top:.3rem;border-radius:6px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit"></label>
@@ -294,26 +365,33 @@ Instrucțiuni: Salvează ca `index.html` într-un folder; pune fișierele media 
             </form>
         </article>
 
-        <!-- PAGE 18 - Despre autor -->
-        <article class="page" data-page="18">
+        <!-- PAGE 15 - Despre autor -->
+        <article class="page" data-page="15">
             <h2>Despre autor</h2>
-            <p class="muted">Detalii despre student (poți completa).</p>
+            <p class="muted">Salut, my name is Vicu-Marin Ababii | (mar1nel)  </p>
+            <a href="https://github.com/mar1nel" target="_blank" rel="noopener noreferrer">MY GITHUB</a>
+
         </article>
 
-        <!-- PAGE 19 - Glosar termeni -->
-        <article class="page" data-page="19">
-            <h2>Glosar</h2>
-            <dl>
-                <dt>Origine</dt><dd>Locul de pornire al mușchiului.</dd>
-                <dt>Inserție</dt><dd>Locul de fixare la os.</dd>
-            </dl>
-        </article>
 
-        <!-- PAGE 20 - Concluzii -->
-        <article class="page" data-page="20">
+        <!-- PAGE 16- Concluzii -->
+        <article class="page" data-page="16">
             <h2>Concluzii</h2>
-            <p class="muted">Sumar și direcții de studiu.</p>
+            <hr>
+            <p>
+                Sistemul muscular este esențial pentru toate funcțiile corpului uman, de la mișcare și menținerea posturii până la susținerea organelor interne și reglarea temperaturii. Înțelegerea tipurilor de mușchi, a structurii și a funcțiilor lor este vitală pentru prevenirea accidentărilor și pentru menținerea sănătății pe termen lung.
+            </p>
+            <p>
+                Afecțiunile musculare pot fi diagnosticate prin tehnici moderne precum RMN, ecografie sau electromiografie, iar recuperarea implică fizioterapie, exerciții și nutriție adecvată. Adoptarea unui stil de viață activ și echilibrat, cu exerciții regulate și alimentație corectă, contribuie semnificativ la menținerea masei și forței musculare.
+            </p>
+            <p>
+                Această prezentare oferă o privire de ansamblu asupra sistemului muscular, combinând informații teoretice cu elemente multimedia și resurse interactive, pentru a facilita învățarea și înțelegerea profundă a anatomiei și funcționării mușchilor.
+            </p>
+            <p>
+                Explorarea sistemului muscular nu se oprește aici - continuarea studiului și aplicarea practică a cunoștințelor dobândite vor ajuta la o mai bună conștientizare a corpului și la optimizarea sănătății și performanței fizice.
+            </p>
         </article>
+
 
         <footer>Prezentare creată cu HTML5 · CSS3 · JavaScript by Ababii Vicu</footer>
     </section>
@@ -322,7 +400,6 @@ Instrucțiuni: Salvează ca `index.html` într-un folder; pune fișierele media 
 <audio id="narration" src="" hidden></audio>
 
 <script>
-    /* --- Build menu dynamically based on pages --- */
     const pages = Array.from(document.querySelectorAll('.page'));
     const menu = document.getElementById('menu');
     const topNav = document.getElementById('top-nav');
