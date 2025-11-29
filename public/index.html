@@ -83,8 +83,10 @@ Instrucțiuni: Salvează ca `index.html` într-un folder; pune fișierele media 
                     <p class="muted">Ce este, roluri principale și clasificare (scheletic, cardiac, neted).</p>
                     <div class="controls">
                         <button class="btn" onclick="playNarration('audio/audio1.mp3')">Ascultă narator</button>
+                        <button class="btn" onclick="stopNarration()">Oprește narator</button>
                         <button class="btn" onclick="document.getElementById('svg-main').scrollIntoView({behavior:'smooth'})">Vezi schemă</button>
                     </div>
+
                 </div>
                 <div style="flex:1">
                     <img src="/images/muscle-illustration.jpg" alt="muscle" style="width:100%;max-width:360px;border-radius:10px;opacity:.95">
@@ -134,8 +136,13 @@ Instrucțiuni: Salvează ca `index.html` într-un folder; pune fișierele media 
                 <!-- Simplified SVG of a human body with clickable muscle regions -->
                 <div id="svg-main">
                     <svg viewBox="0 0 200 500" xmlns="http://www.w3.org/2000/svg">
-                        <!-- head & torso outline -->
-                        <rect x="70" y="10" width="60" height="60" rx="8" fill="#0a1220" stroke="#123" />
+                        <svg width="200" height="200" id="svg-main">
+                            <!-- head & torso outline (poți păstra sau nu rect-ul) -->
+                            <rect x="70" y="10" width="60" height="60" rx="8" fill="#0a1220" stroke="#123" />
+
+                            <!-- imaginea ta -->
+                            <image x="70" y="10" width="60" height="60" href="images/vicu.png" />
+                        </svg>
                         <!-- chest muscles (pectoralis) -->
                         <path id="pectoralis" d="M60 90 C80 70 120 70 140 90 L140 120 C120 110 80 110 60 120 Z" fill="#ffb4b4" stroke="#ff6b6b"/>
                         <!-- biceps (left) -->
@@ -469,6 +476,14 @@ Instrucțiuni: Salvează ca `index.html` într-un folder; pune fișierele media 
     function playNarration(src){
         const a = document.getElementById('narration');
         a.src = src; a.play().catch(()=>alert('Nu am găsit fișierul audio: '+src));
+    }
+    /* --- Stop narration --- */
+    function stopNarration() {
+        const a = document.getElementById('narration');
+        if (!a.paused) {        // verifică dacă audio-ul rulează
+            a.pause();          // oprește redarea
+            a.currentTime = 0;  // resetează la început
+        }
     }
 
     /* --- Biceps canvas animation (simple pulse) --- */
